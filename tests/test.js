@@ -5,14 +5,10 @@ test('using window.fetch causes a warning', async ({ page, baseURL }) => {
 		page.goto('/load/window-fetch/incorrect'),
 		page.waitForEvent('console', {
 			predicate: (message) => {
-				const text = message.text();
-				if (
-					text ===
+				return (
+					message.text() ===
 					`Loading ${baseURL}/load/window-fetch/data.json using \`window.fetch\`. For best results, use the \`fetch\` that is passed to your \`load\` function: https://kit.svelte.dev/docs/load#making-fetch-requests`
-				) {
-					return true;
-				}
-				return false;
+				);
 			},
 			timeout: 3_000
 		})
